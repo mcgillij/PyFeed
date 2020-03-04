@@ -1,4 +1,12 @@
 # Byte-compiled / optimized / DLL files
+#
+# Virtual Env
+3.8/
+
+# settings 
+#
+settings.dat
+
 __pycache__/
 *.py[cod]
 *$py.class

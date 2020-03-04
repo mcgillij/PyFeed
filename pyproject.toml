@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "PyFeed"
+version = "0.1.0"
+description = "QT5 RSS reader in python 3.8.2"
+
+license = "GPL"
+
+authors = [
+    "Jason McGillivray <mcgillivray.jason@gmail.com>"
+]
+
+readme = 'README.md'
+
+repository = "https://github.com/mcgillij/PyFeed"
+homepage = "https://github.com/mcgillij/PyFeed"
+
+keywords = ['rss', 'reader']
+
+[tool.poetry.dependencies]
+python = "3.8"
+toml = "^0.9"
+# Dependencies with extras
+
+
+PySide2 = "^5.14.1"
+requests = "^2.23.0"
+feedparser = "^5.2.1"
+[tool.poetry.dev-dependencies]
+ipython = "^7.13.0"
+
+[tool.poetry.scripts]
+my-script = 'my_package:main'
