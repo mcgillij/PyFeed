@@ -26,6 +26,7 @@ PySide2 = "^5.14.1"
 requests = "^2.23.0"
 feedparser = "^5.2.1"
 cx-freeze = "^6.1"
+cx_Freeze = "^6.1"
 [tool.poetry.dev-dependencies]
 ipython = "^7.13.0"
 
