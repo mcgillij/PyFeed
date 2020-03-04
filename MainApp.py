@@ -126,7 +126,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             if f['plus']:
                 num = self.get_filter_count(f)
                 widget_text  = f['filter'] + " (" + str(num) + ")"
-                widget = QtGui.QPushButton(widget_text)
+                widget = QPushButton(widget_text)
                 widget.clicked.connect(functools.partial(self.filter_on, f))
                 self.horizontalLayout.addWidget(widget)
             else:
@@ -251,13 +251,10 @@ def check_for_val(entry, pattern):
         if isinstance(value, dict):
             continue
         else:
-            try:
-                value = str(value).encode('utf-8')
-                result = value.lower().find(pattern.lower())
-                if result != -1:    
-                    return True
-            except UnicodeEncodeError:
-                pass
+            value = str(value)
+            result = value.lower().find(pattern.lower())
+            if result != -1:    
+                return True
     return False
 
 def is_ascii(s):
