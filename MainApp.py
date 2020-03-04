@@ -41,7 +41,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         self.settings = Settings()
         self.settings.load_settings()
         self.statusbar.showMessage('Feeds tracked: ' + str(len(self.settings.uri_list)))
-        self.actionQuit.triggered.connect(sys.exit)
+        self.actionQuit.triggered.connect(QtGui.qApp.quit)
         self.actionSettings.triggered.connect(self._slotSettings)
         self.actionFilters.triggered.connect(self._slotFilters)
         self.pushRefreshButton.clicked.connect(self._slotRefresh)
@@ -114,8 +114,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
     def makeSysTrayActions(self):
         self.maximizeAction = QAction("Ma&ximize", self, triggered=self.showMaximized)
         self.restoreAction = QAction("&Restore", self, triggered=self.showNormal)
-        self.quitAction = QAction("&Quit", self, triggered=sys.exit)
-        #self.quitAction = QAction("&Quit", self, triggered=QtGui.QGuiApplication.quit)
+        self.quitAction = QAction("&Quit", self, triggered=QtGui.qApp.quit)
 
     def generate_filter_buttons(self):
         # clear the hbox of widgets before adding new ones.
@@ -273,4 +272,4 @@ if __name__=='__main__':
     MA = MainApp()
     MA.main()
     app.setStyle("plastique")
-    app.exec_()
+    sys.exit(app.exec_())

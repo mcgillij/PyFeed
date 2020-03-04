@@ -25,8 +25,9 @@ toml = "^0.9"
 PySide2 = "^5.14.1"
 requests = "^2.23.0"
 feedparser = "^5.2.1"
+cx-freeze = "^6.1"
 [tool.poetry.dev-dependencies]
 ipython = "^7.13.0"
 
 [tool.poetry.scripts]
-my-script = 'my_package:main'
+my-script = 'MainApp:main'
