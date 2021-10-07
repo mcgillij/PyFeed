@@ -1,6 +1,17 @@
 FeedPy
 ======
 
+Installation
+============
+
+You can install the dependencies with `poetry`.
+
+``` bash
+git clone git@github.com:mcgillij/PyFeed.git && cd PyFeed/
+poetry install 
+poetry run MainApp.py
+```
+
 Screenshot
 ==========
 
