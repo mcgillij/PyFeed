@@ -1,4 +1,4 @@
-FeedPy
+PyFeed
 ======
 
 Installation
