@@ -1,30 +1,31 @@
 #!/usr/bin/python
 """ main class """
+import sys
 import webbrowser
 from PySide2 import QtGui
 from PySide2.QtCore import *
 from PySide2.QtWidgets import *
-import sys
-from pprint import pprint
-import os, glob
+
 # Import the interface class
-import mainwindow 
+import mainwindow
 from FeedReader import FeedReader
 from RssListItem import RssListItem
-import pickle
 from Settings import Settings
 from SettingsDialogue import SettingsDialogue
 import time
 from FilterDialogue import FilterDialogue
 import functools
 import string
+
 try:
     import feedpy_rc
 except:
     print("failed to load your resource")
 
+
 class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
-    """ MainApp Class thats generated from the mainwindow.ui and converted to python """
+    """MainApp Class thats generated from the mainwindow.ui and converted to python"""
+
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         self.setupUi(self)
@@ -40,8 +41,8 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         self.exclusive_filters = None
         self.settings = Settings()
         self.settings.load_settings()
-        self.statusbar.showMessage('Feeds tracked: ' + str(len(self.settings.uri_list)))
-        self.actionQuit.triggered.connect(QtGui.qApp.quit)
+        self.statusbar.showMessage("Feeds tracked: " + str(len(self.settings.uri_list)))
+        self.actionQuit.triggered.connect(QApplication.quit)
         self.actionSettings.triggered.connect(self._slotSettings)
         self.actionFilters.triggered.connect(self._slotFilters)
         self.pushRefreshButton.clicked.connect(self._slotRefresh)
@@ -57,11 +58,11 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         if self.settings.alert_time != 0:
             self.alert_timer.start(self.settings.alert_time * 60 * 1000)
         self._slotRefresh()
-        #one_off_timer = QTimer()
-        #one_off_timer.singleShot(1, self._slotRefresh)
-        
+        # one_off_timer = QTimer()
+        # one_off_timer.singleShot(1, self._slotRefresh)
+
     def setVisible(self, visible):
-        #self.minimizeAction.setEnabled(visible)
+        # self.minimizeAction.setEnabled(visible)
         self.maximizeAction.setEnabled(not self.isMaximized())
         self.restoreAction.setEnabled(self.isMaximized() or not visible)
         super(MainApp, self).setVisible(visible)
@@ -90,13 +91,13 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             icon = QSystemTrayIcon.MessageIcon()
             duration = 5 * 1000
             text = "\n".join(self.systray_text_list)
-            self.systrayIcon.showMessage("FeedPy Alert", text , icon, duration)
+            self.systrayIcon.showMessage("FeedPy Alert", text, icon, duration)
 
     def showMessage(self):
         icon = QSystemTrayIcon.MessageIcon()
         duration = 5 * 1000
         text = "\n".join(self.systray_text_list)
-        self.systrayIcon.showMessage("FeedPy Alert", text , icon, duration)
+        self.systrayIcon.showMessage("FeedPy Alert", text, icon, duration)
 
     def messageClicked(self):
         if not super(MainApp, self).isVisible():
@@ -114,7 +115,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
     def makeSysTrayActions(self):
         self.maximizeAction = QAction("Ma&ximize", self, triggered=self.showMaximized)
         self.restoreAction = QAction("&Restore", self, triggered=self.showNormal)
-        self.quitAction = QAction("&Quit", self, triggered=QtGui.qApp.quit)
+        self.quitAction = QAction("&Quit", self, triggered=QApplication.quit)
 
     def generate_filter_buttons(self):
         # clear the hbox of widgets before adding new ones.
@@ -123,9 +124,9 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             self.horizontalLayout.itemAt(i).widget().close()
         exclusive_filters = []
         for f in self.settings.filters:
-            if f['plus']:
+            if f["plus"]:
                 num = self.get_filter_count(f)
-                widget_text  = f['filter'] + " (" + str(num) + ")"
+                widget_text = f["filter"] + " (" + str(num) + ")"
                 widget = QPushButton(widget_text)
                 widget.clicked.connect(functools.partial(self.filter_on, f))
                 self.horizontalLayout.addWidget(widget)
@@ -142,9 +143,9 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         text = "All: " + str(all_entries)
         self.systray_text_list.append(text)
         for f in self.settings.filters:
-            if f['plus']:
+            if f["plus"]:
                 num = self.get_filter_count(f)
-                text = f['filter'] + " (" + str(num) + ")"
+                text = f["filter"] + " (" + str(num) + ")"
                 self.systray_text_list.append(text)
         if self.systray_text_list:
             text_string = "\n".join(self.systray_text_list)
@@ -153,7 +154,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
     def get_filter_count(self, pattern):
         count = 0
         for entry in self.feed_reader.entries:
-            contains = check_for_val(entry, pattern['filter'])
+            contains = check_for_val(entry, pattern["filter"])
             if contains:
                 count = count + 1
         return count
@@ -163,7 +164,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         temp_list = []
         self.listWidgetRss.clear()
         for entry in self.feed_reader.entries:
-            contains = check_for_val(entry, pattern['filter'])
+            contains = check_for_val(entry, pattern["filter"])
             if contains:
                 temp_list.append(entry)
         temp_list = self.filter_out(temp_list)
@@ -176,13 +177,13 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             for entry in mylist:
                 flagged = False
                 for pattern in self.exclusive_filters:
-                    contains = check_for_val(entry, pattern['filter'])
+                    contains = check_for_val(entry, pattern["filter"])
                     if contains:
                         flagged = True
                 if not flagged:
                     temp_list.append(entry)
             return temp_list
-        else: 
+        else:
             return mylist
 
     def _slotFilters(self):
@@ -192,7 +193,7 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             self.generate_filter_buttons()
 
     def _slotSettings(self):
-        """ Clicked on the settings menu item """
+        """Clicked on the settings menu item"""
         return_value = self.settings_dialogue.exec_()
         if return_value == 1:
             self.settings.load_settings()
@@ -203,15 +204,15 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
             if self.settings.alert_time != 0:
                 self.alert_timer.start(self.settings.alert_time * 60 * 1000)
             self._slotRefresh()
-        self.statusbar.showMessage('Feeds tracked: ' + str(len(self.settings.uri_list)))
+        self.statusbar.showMessage("Feeds tracked: " + str(len(self.settings.uri_list)))
 
     def _slotItemClicked(self):
-        """ RSS list item clicked"""
+        """RSS list item clicked"""
         for item in self.listWidgetRss.selectedItems():
             webbrowser.open(item.feed.link)
 
     def _slotRefresh(self):
-        """ Refresh button clicked """
+        """Refresh button clicked"""
         self.statusbar.showMessage("Refreshing feeds")
         five_hours = 18000
         local_time = time.mktime(time.gmtime())
@@ -225,11 +226,11 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
         has_time = False
         for entry in temp_list:
             item = RssListItem(entry, self.listWidgetRss)
-            if 'published_parsed' in item.feed:
-                mytime = time.mktime(item.feed['published_parsed'])
+            if "published_parsed" in item.feed:
+                mytime = time.mktime(item.feed["published_parsed"])
                 has_time = True
-            elif 'updated_parsed' in item.feed:
-                mytime = time.mktime(item.feed['updated_parsed'])
+            elif "updated_parsed" in item.feed:
+                mytime = time.mktime(item.feed["updated_parsed"])
                 has_time = True
             if has_time:
                 has_time = False
@@ -239,12 +240,15 @@ class MainApp(QMainWindow, mainwindow.Ui_MainWindow):
                     item.setBackgroundColor(Qt.green)
         if self.settings.refresh_time != 0:
             self.refresh_timer.start(self.settings.refresh_time * 60 * 1000)
-        status_string = "Refresh took: " + str(int((time.time()- start_time))) + " seconds."
+        status_string = (
+            "Refresh took: " + str(int((time.time() - start_time))) + " seconds."
+        )
         self.statusbar.showMessage(status_string, 2000)
         self.updateSystrayMessage()
 
     def main(self):
         self.show()
+
 
 def check_for_val(entry, pattern):
     for key, value in list(entry.items()):
@@ -253,9 +257,10 @@ def check_for_val(entry, pattern):
         else:
             value = str(value)
             result = value.lower().find(pattern.lower())
-            if result != -1:    
+            if result != -1:
                 return True
     return False
+
 
 def is_ascii(s):
     s = str(s)
@@ -264,7 +269,8 @@ def is_ascii(s):
             return False
     return True
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     MA = MainApp()
     MA.main()

@@ -3,22 +3,19 @@
 ################################################################################
 ## Form generated from reading UI file 'filters.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.14.1
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
-    QRect, QSize, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
-    QRadialGradient)
+from PySide2.QtCore import *
+from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        if Dialog.objectName():
+        if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
         Dialog.setWindowModality(Qt.ApplicationModal)
         Dialog.resize(437, 346)
@@ -37,7 +34,7 @@ class Ui_Dialog(object):
         self.buttonBox = QDialogButtonBox(Dialog)
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
 
         self.gridLayout.addWidget(self.buttonBox, 3, 1, 1, 1)
 
@@ -65,12 +62,12 @@ class Ui_Dialog(object):
 
         self.gridLayout.addWidget(self.label_2, 1, 1, 1, 1)
 
-
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
         self.buttonBox.rejected.connect(Dialog.reject)
 
         QMetaObject.connectSlotsByName(Dialog)
+
     # setupUi
 
     def retranslateUi(self, Dialog):
@@ -78,6 +75,8 @@ class Ui_Dialog(object):
         self.label.setText(QCoreApplication.translate("Dialog", u"Filter:", None))
         self.pushButtonPlus.setText(QCoreApplication.translate("Dialog", u"+", None))
         self.pushButtonMinus.setText(QCoreApplication.translate("Dialog", u"-", None))
-        self.label_2.setText(QCoreApplication.translate("Dialog", u"Click to remove item.", None))
-    # retranslateUi
+        self.label_2.setText(
+            QCoreApplication.translate("Dialog", u"Click to remove item.", None)
+        )
 
+    # retranslateUi

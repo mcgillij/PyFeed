@@ -3,22 +3,19 @@
 ################################################################################
 ## Form generated from reading UI file 'diag.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.14.1
+## Created by: Qt User Interface Compiler version 5.15.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
-    QRect, QSize, QUrl, Qt)
-from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
-    QFontDatabase, QIcon, QLinearGradient, QPalette, QPainter, QPixmap,
-    QRadialGradient)
+from PySide2.QtCore import *
+from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
-        if Dialog.objectName():
+        if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
         Dialog.setWindowModality(Qt.ApplicationModal)
         Dialog.resize(537, 376)
@@ -64,21 +61,25 @@ class Ui_Dialog(object):
         self.lineEditRefresh = QLineEdit(Dialog)
         self.lineEditRefresh.setObjectName(u"lineEditRefresh")
         self.lineEditRefresh.setMaximumSize(QSize(25, 16777215))
-        self.lineEditRefresh.setInputMethodHints(Qt.ImhDigitsOnly|Qt.ImhFormattedNumbersOnly|Qt.ImhPreferNumbers)
+        self.lineEditRefresh.setInputMethodHints(
+            Qt.ImhDigitsOnly | Qt.ImhFormattedNumbersOnly | Qt.ImhPreferNumbers
+        )
 
         self.gridLayout.addWidget(self.lineEditRefresh, 4, 1, 1, 1)
 
         self.lineEditAlertAt = QLineEdit(Dialog)
         self.lineEditAlertAt.setObjectName(u"lineEditAlertAt")
         self.lineEditAlertAt.setMaximumSize(QSize(25, 16777215))
-        self.lineEditAlertAt.setInputMethodHints(Qt.ImhDigitsOnly|Qt.ImhFormattedNumbersOnly|Qt.ImhPreferNumbers)
+        self.lineEditAlertAt.setInputMethodHints(
+            Qt.ImhDigitsOnly | Qt.ImhFormattedNumbersOnly | Qt.ImhPreferNumbers
+        )
 
         self.gridLayout.addWidget(self.lineEditAlertAt, 5, 1, 1, 1)
 
         self.buttonBox = QDialogButtonBox(Dialog)
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel | QDialogButtonBox.Ok)
 
         self.gridLayout.addWidget(self.buttonBox, 6, 1, 1, 1)
 
@@ -87,21 +88,29 @@ class Ui_Dialog(object):
 
         self.gridLayout.addWidget(self.label_5, 4, 3, 1, 1)
 
-
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
         self.buttonBox.rejected.connect(Dialog.reject)
 
         QMetaObject.connectSlotsByName(Dialog)
+
     # setupUi
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Settings", None))
-        self.label_4.setText(QCoreApplication.translate("Dialog", u"Alert every (Minutes):", None))
+        self.label_4.setText(
+            QCoreApplication.translate("Dialog", u"Alert every (Minutes):", None)
+        )
         self.pushAddButton.setText(QCoreApplication.translate("Dialog", u"Add", None))
-        self.label.setText(QCoreApplication.translate("Dialog", u"RSS url to add to monitoring:", None))
-        self.label_2.setText(QCoreApplication.translate("Dialog", u"Click item to remove", None))
-        self.label_3.setText(QCoreApplication.translate("Dialog", u"Refresh (Minutes): ", None))
+        self.label.setText(
+            QCoreApplication.translate("Dialog", u"RSS url to add to monitoring:", None)
+        )
+        self.label_2.setText(
+            QCoreApplication.translate("Dialog", u"Click item to remove", None)
+        )
+        self.label_3.setText(
+            QCoreApplication.translate("Dialog", u"Refresh (Minutes): ", None)
+        )
         self.label_5.setText(QCoreApplication.translate("Dialog", u"0 for Off", None))
-    # retranslateUi
 
+    # retranslateUi

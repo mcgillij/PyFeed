@@ -17,18 +17,19 @@ homepage = "https://github.com/mcgillij/PyFeed"
 keywords = ['rss', 'reader']
 
 [tool.poetry.dependencies]
-python = "3.8"
-toml = "^0.9"
+python = ">=3.7,<3.10"
+toml = "^0.10.2"
 # Dependencies with extras
 
 
-PySide2 = "^5.14.1"
-requests = "^2.23.0"
-feedparser = "^5.2.1"
-cx-freeze = "^6.1"
-cx_Freeze = "^6.1"
+requests = "^2.26.0"
+feedparser = "^6.0.8"
+PySide2 = "^5.15.2"
 [tool.poetry.dev-dependencies]
 ipython = "^7.13.0"
+black = "^21.9b0"
+pylint = "^2.11.1"
+flake8 = "^3.9.2"
 
 [tool.poetry.scripts]
 my-script = 'MainApp:main'
